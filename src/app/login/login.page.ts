@@ -8,7 +8,8 @@ import {MenuController, ToastController} from '@ionic/angular';
 import {Facebook, FacebookLoginResponse} from '@ionic-native/facebook/ngx';
 import {GooglePlus} from '@ionic-native/google-plus/ngx';
 import {Users} from '../services/sqlite/users/users';
-
+import { GlobalProvider } from '../global-provider';
+import {LoginAuthService} from '../helper/login-auth.service';
 
 @Component({
     selector: 'app-login',
@@ -45,7 +46,9 @@ export class LoginPage implements OnInit {
         private toastCtrl: ToastController,
         private fb: Facebook,
         private UsersDatas: UsersService,
-        private googlePlus: GooglePlus
+        private googlePlus: GooglePlus,
+        private global: GlobalProvider,
+        private LoginCek: LoginAuthService
     ) {
         this.data = new Users();
         this.loginForm = new FormGroup({
@@ -62,6 +65,7 @@ export class LoginPage implements OnInit {
 
     ngOnInit(): void {
         this.menu.enable(false);
+
     }
 
     async presentToast(res) {
@@ -83,6 +87,11 @@ export class LoginPage implements OnInit {
                 this.UsersDatas.insert(this.UserField);
                 this.router.navigated = false;
                 this.router.navigate(['app/categories']);
+                this.LoginCek.load().then(
+                    res2 => this.CekDataSession(res2),
+                    err => console.log('HTTP Error', err),
+                );
+
             }
             this.colorpesan = 'success';
         }
@@ -101,7 +110,6 @@ export class LoginPage implements OnInit {
             res => this.presentToast(res),
             err => console.log('HTTP Error', err),
         );
-
     }
 
     goToForgotPassword(): void {
@@ -109,12 +117,6 @@ export class LoginPage implements OnInit {
     }
 
     doFacebookLogin(): void {
-        this.fb.getLoginStatus().then((data) => {
-                if (data.status === 'connected') {
-                    this.fb.logout();
-                }
-            }
-        );
         this.fb.getLoginStatus().then((res) => {
             if (res.status !== 'connected') {
                 // Not already logged in to FB so sign in
@@ -146,10 +148,28 @@ export class LoginPage implements OnInit {
     }
 
     async Createdatausers() {
+        this.LoginCek.load().then(
+            res => this.CekDataSession(res),
+            err => console.log('HTTP Error', err),
+        );
         this.apiService.CreateDataMediaSosial(this.UserField).subscribe(
             res2 => this.CreateSqlite(res2),
              err => console.log('HTTP Error', err),
         );
+    }
+    async CekDataSession(res) {
+        if (res.status === true) {
+            this.global.datausers2 = {
+                id: res.message[0].id,
+                name: res.message[0].name,
+                email: res.message[0].email,
+                userId: res.message[0].userId,
+                image: res.message[0].image,
+                role: res.message[0].role,
+                isCode: res.message[0].isCode,
+            };
+            console.log(this.global.datausers2);
+        }
     }
     async CreateSqlite(res2) {
         this.UserField = {
@@ -161,7 +181,6 @@ export class LoginPage implements OnInit {
             image: res2['result'].users.user_by,
             isCode: res2['result'].users.is_aktif,
         }
-
         this.UsersDatas.insert(this.UserField);
         const toast2 = await this.toastCtrl.create({
             message: 'Login Berhasil',
@@ -170,7 +189,6 @@ export class LoginPage implements OnInit {
             duration: 5000,
             showCloseButton: true,
         });
-
         toast2.present();
         this.router.navigate(['app/categories']);
     }
@@ -193,7 +211,6 @@ export class LoginPage implements OnInit {
         };
         this.Createdatausers();
     }
-
     doTwitterLogin(): void {
         console.log('twitter login');
         this.router.navigate(['app/categories']);

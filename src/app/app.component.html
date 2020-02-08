@@ -3,15 +3,15 @@
     <ion-menu class="app-sidemenu">
       <ion-header>
         <ion-toolbar>
-          <ion-row class="user-details-wrapper" *ngIf="datausers2">
+          <ion-row class="user-details-wrapper" *ngIf="global.datausers2">
             <ion-col size="4">
               <app-aspect-ratio [ratio]="{w: 1, h: 1}">
-                <app-image-shell class="user-avatar" animation="spinner" [src]="datausers2.image"></app-image-shell>
+                <app-image-shell class="user-avatar" animation="spinner" [src]="global.datausers2.image"></app-image-shell>
               </app-aspect-ratio>
             </ion-col>
             <ion-col class="user-info-wrapper" size="8">
-              <h3 class="user-name">{{ datausers2.name }}</h3>
-              <h5 class="user-handle"> {{ datausers2.email }} </h5>
+              <h3 class="user-name">{{ global.datausers2.name }}</h3>
+              <h5 class="user-handle"> {{ global.datausers2.email }} </h5>
             </ion-col>
           </ion-row>
           <ion-row class="user-stats-wrapper user-details-wrapper">

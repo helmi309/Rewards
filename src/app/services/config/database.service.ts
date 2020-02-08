@@ -25,7 +25,6 @@ export class DatabaseService {
     // await this.CekSession.load();
     return result ? true : false;
   }
-
   async getCreateTable() {
     const sqls = [];
     sqls.push('CREATE TABLE IF NOT EXISTS users (id integer primary key AUTOINCREMENT, name varchar(100), email varchar(100), userId varchar(100), image varchar(300), role varchar(100), isCode varchar(300));');
@@ -33,6 +32,6 @@ export class DatabaseService {
   }
 
   async executeSQL(sql: string, params?: any[]) {
-    return this.db.executeSql(sql, params);
+    return await this.db.executeSql(sql, params);
   }
 }

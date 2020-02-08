@@ -4,13 +4,9 @@ import { RouteReuseStrategy } from '@angular/router';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
 import { ComponentsModule } from './components/components.module';
-
 import { ServiceWorkerModule } from '@angular/service-worker';
-
 import { environment } from '../environments/environment';
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -21,6 +17,8 @@ import {Facebook} from '@ionic-native/facebook/ngx';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { SQLite } from '@ionic-native/sqlite/ngx';
 import { SQLitePorter } from '@ionic-native/sqlite-porter/ngx';
+import { GlobalProvider } from './global-provider';
+import { AppRoutingModule } from './app-routing.module';
 
 
 
@@ -50,6 +48,7 @@ export function createTranslateLoader(http: HttpClient) {
     Facebook,
     GooglePlus,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    GlobalProvider,
     SQLite,
     SQLitePorter,
   ],

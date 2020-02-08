@@ -1,5 +1,4 @@
 import { Component, OnInit, AfterViewInit, ViewChild, HostBinding } from '@angular/core';
-
 import { IonSlides, MenuController } from '@ionic/angular';
 
 @Component({
@@ -25,7 +24,6 @@ export class WalkthroughPage implements OnInit, AfterViewInit {
   @HostBinding('class.last-slide-active') isLastSlide = false;
 
   constructor(public menu: MenuController) { }
-
   ngOnInit(): void {
     this.menu.enable(false);
   }

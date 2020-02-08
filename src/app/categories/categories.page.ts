@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-categories',
@@ -9,4 +10,13 @@ import { Component } from '@angular/core';
     './styles/categories.responsive.scss'
   ]
 })
-export class CategoriesPage { }
+export class CategoriesPage implements  OnInit {
+  constructor(private router: Router) {
+  }
+  ngOnInit(): void {
+    console.log(this.router.navigated);
+
+  }
+
+
+}

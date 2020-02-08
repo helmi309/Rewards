@@ -166,7 +166,6 @@ export class AppComponent {
                 role: res.message[0].role,
                 isCode: res.message[0].isCode,
             };
-            console.log(this.global.datausers2);
         }
     }
 

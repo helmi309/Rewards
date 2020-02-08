@@ -86,12 +86,11 @@ export class LoginPage implements OnInit {
                 };
                 this.UsersDatas.insert(this.UserField);
                 this.router.navigated = false;
-                this.router.navigate(['app/categories']);
                 this.LoginCek.load().then(
-                    res2 => this.CekDataSession(res2),
+                    res2 => this.CekDataSession2(res2),
                     err => console.log('HTTP Error', err),
                 );
-
+                this.router.navigate(['app/categories']);
             }
             this.colorpesan = 'success';
         }
@@ -140,7 +139,6 @@ export class LoginPage implements OnInit {
                 });
             } else {
                 this.fb.api('me?fields=id,name,email,first_name,picture.width(720).height(720).as(picture_large)', []).then(profile => {
-                    console.log(profile['email']);
                 });
             }
         });
@@ -148,16 +146,12 @@ export class LoginPage implements OnInit {
     }
 
     async Createdatausers() {
-        this.LoginCek.load().then(
-            res => this.CekDataSession(res),
-            err => console.log('HTTP Error', err),
-        );
         this.apiService.CreateDataMediaSosial(this.UserField).subscribe(
             res2 => this.CreateSqlite(res2),
              err => console.log('HTTP Error', err),
         );
     }
-    async CekDataSession(res) {
+    async CekDataSession2(res) {
         if (res.status === true) {
             this.global.datausers2 = {
                 id: res.message[0].id,
@@ -181,7 +175,11 @@ export class LoginPage implements OnInit {
             image: res2['result'].users.user_by,
             isCode: res2['result'].users.is_aktif,
         }
-        this.UsersDatas.insert(this.UserField);
+        await this.UsersDatas.insert(this.UserField);
+        await this.LoginCek.load().then(
+            res => this.CekDataSession2(res),
+            err => console.log('HTTP Error', err),
+        );
         const toast2 = await this.toastCtrl.create({
             message: 'Login Berhasil',
             color: 'success',

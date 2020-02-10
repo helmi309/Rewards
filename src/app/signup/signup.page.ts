@@ -6,6 +6,7 @@ import { ModalController, MenuController } from '@ionic/angular';
 import { TermsOfServicePage } from '../terms-of-service/terms-of-service.page';
 import { PrivacyPolicyPage } from '../privacy-policy/privacy-policy.page';
 import { PasswordValidator } from '../validators/password.validator';
+import {Users} from '../services/sqlite/users/users';
 
 @Component({
   selector: 'app-signup',
@@ -17,6 +18,7 @@ import { PasswordValidator } from '../validators/password.validator';
 export class SignupPage implements OnInit {
   signupForm: FormGroup;
   matching_passwords_group: FormGroup;
+  data: Users;
 
   validation_messages = {
     'email': [
@@ -34,12 +36,12 @@ export class SignupPage implements OnInit {
       { type: 'areNotEqual', message: 'Password mismatch' }
     ]
   };
-
   constructor(
     public router: Router,
     public modalController: ModalController,
     public menu: MenuController
   ) {
+    this.data = new Users();
     this.matching_passwords_group = new FormGroup({
       'password': new FormControl('', Validators.compose([
         Validators.minLength(5),
@@ -60,6 +62,7 @@ export class SignupPage implements OnInit {
   }
 
   ngOnInit(): void {
+    this.router.navigated = true;
     this.menu.enable(false);
   }
 

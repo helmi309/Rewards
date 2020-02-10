@@ -209,8 +209,4 @@ export class LoginPage implements OnInit {
         };
         this.Createdatausers();
     }
-    doTwitterLogin(): void {
-        console.log('twitter login');
-        this.router.navigate(['app/categories']);
-    }
 }

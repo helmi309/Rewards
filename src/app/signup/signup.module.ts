@@ -9,6 +9,7 @@ import { ComponentsModule } from '../components/components.module';
 import { SignupPage } from './signup.page';
 import { TermsOfServicePage } from '../terms-of-service/terms-of-service.page';
 import { PrivacyPolicyPage } from '../privacy-policy/privacy-policy.page';
+import {Verivikasi} from '../verivikasi/verivikasi.page';
 
 const routes: Routes = [
   {
@@ -26,7 +27,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     ComponentsModule
   ],
-  declarations: [SignupPage, TermsOfServicePage, PrivacyPolicyPage],
-  entryComponents: [TermsOfServicePage, PrivacyPolicyPage]
+  declarations: [SignupPage, TermsOfServicePage, PrivacyPolicyPage, Verivikasi],
+  entryComponents: [TermsOfServicePage, PrivacyPolicyPage, Verivikasi]
 })
 export class SignupPageModule {}

@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">Close</ion-button>
+    </ion-buttons>
+    <ion-title>
+      Rewards
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content  class="signup-content">
+  <h3 class="legal-title">Hello!</h3>
+  <p class="legal-text">
+    Sebagai langkah keamanan akun tambahan, Anda harus memberikan akses ke browser ini dengan memasukkan kode spesial yang baru saja kami kirim ke alamat email Anda
+  </p>
+  <form [formGroup]="verivikasi" (ngSubmit)="doSignup()">
+    <ion-list class="inputs-list" lines="full">
+      <ion-item class="input-item">
+        <ion-input type="text" placeholder="Code Verifikasi" [(ngModel)]="data.code" formControlName="code" clearInput autocapitalize="off" inputmode="code"></ion-input>
+      </ion-item>
+      <div class="error-container">
+        <ng-container *ngFor="let validation of validation_messages.code">
+          <div class="error-message" *ngIf="verivikasi.get('code').hasError(validation.type) && (verivikasi.get('code').dirty || verivikasi.get('code').touched)">
+            <ion-icon name="information-circle-outline"></ion-icon>
+            <span>{{ validation.message }}</span>
+          </div>
+        </ng-container>
+      </div>
+      <ion-button class="signup-btn" type="submit" expand="block" [disabled]="!verivikasi.valid">Verifikasi</ion-button>
+    <ion-row class="other-auth-options-row">
+      <ion-button class="login-btn" fill="clear" (click)="dismiss()">
+        Kirim Ulang Kode
+      </ion-button>
+    </ion-row>
+    </ion-list>
+  </form>
+</ion-content>

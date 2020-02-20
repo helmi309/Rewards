@@ -27,6 +27,10 @@ export class ApiService {
     return this.http
         .post<Users>(this.base_path + 'api/login-mobile', JSON.stringify(item), this.httpOptions);
   }
+  Register(item): Observable<Users> {
+    return this.http
+        .post<Users>(this.base_path + 'api/register-rewards', JSON.stringify(item), this.httpOptions);
+  }
   CreateDataMediaSosial(item): Observable<Users> {
     return this.http
         .post<Users>(this.base_path + 'api/create-media-sosial', JSON.stringify(item), this.httpOptions);

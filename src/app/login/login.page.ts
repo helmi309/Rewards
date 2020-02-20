@@ -128,7 +128,7 @@ export class LoginPage implements OnInit {
                             userId: '',
                             role: '2',
                             image: profile['picture_large']['data']['url'],
-                            isCode: '0',
+                            isCode: '1',
                         };
                         this.Createdatausers();
                     });
@@ -205,7 +205,7 @@ export class LoginPage implements OnInit {
             userId: '',
             role: '3',
             image: profile['imageUrl'],
-            isCode: '0',
+            isCode: '1',
         };
         this.Createdatausers();
     }

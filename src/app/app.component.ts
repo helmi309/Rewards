@@ -76,22 +76,19 @@ export class AppComponent {
     textDir = 'ltr';
     constructor(public translate: TranslateService, private db: DatabaseService, private LoginCek: LoginAuthService, private usersService: UsersService, private alertCtrl: AlertController, private toastCtrl: ToastController, private router: Router, private fb: Facebook, private UsersDatas: UsersService, private ionicWindow: Platform, private googlePlus: GooglePlus, private platform: Platform, public global: GlobalProvider) {
         this.platform.ready().then(() => {
+            SplashScreen.hide();
             this.initializeApp();
         });
         this.setLanguage();
         this.backbutton();
-
     }
-
     async backbutton() {
         if (this.router.navigated === false) {
             this.platform.backButton.subscribe(() => {
-                console.log('halo');
                 navigator['app'].exitApp();
             });
         }
     }
-
     async logout() {
         const alert = await this.alertCtrl.create({
             header: 'Delete?',
@@ -111,7 +108,6 @@ export class AppComponent {
         });
         alert.present();
     }
-
     async yakinkeluar() {
         try {
             // Removendo do banco de dados
@@ -142,15 +138,15 @@ export class AppComponent {
             toast.present();
         }
     }
-
     async initializeApp() {
         try {
-            await SplashScreen.hide();
-            await this.db.openDatabase();
-            await this.LoginCek.load().then(
-                res => this.CekDataSession(res),
-                err => console.log('HTTP Error', err),
-            );
+            this.db.openDatabase();
+            setTimeout(() => {
+                this.LoginCek.load().then(
+                    res => this.CekDataSession(res),
+                    err => console.log('HTTP Error', err),
+                ); }, 2000);
+
         } catch (err) {
             console.log('This is normal in a browser', err);
         }
@@ -168,24 +164,19 @@ export class AppComponent {
             };
         }
     }
-
     CloseApp() {
         navigator['app'].exitApp();
         // this.ionicWindow.exitApp();
     }
-
     setLanguage() {
         // this language will be used as a fallback when a translation isn't found in the current language
         this.translate.setDefaultLang('en');
-
         // the lang to use, if the lang isn't available, it will use the current loader to get them
         this.translate.use('en');
-
         // this is to determine the text direction depending on the selected language
         // for the purpose of this example we determine that only arabic and hebrew are RTL.
         // this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
         //   this.textDir = (event.lang === 'ar' || event.lang === 'iw') ? 'rtl' : 'ltr';
         // });
     }
-
 }

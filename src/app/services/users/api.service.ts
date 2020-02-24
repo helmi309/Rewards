@@ -31,6 +31,15 @@ export class ApiService {
     return this.http
         .post<Users>(this.base_path + 'api/register-rewards', JSON.stringify(item), this.httpOptions);
   }
+  ValidasiRegister(item): Observable<Users> {
+    return this.http
+        .post<Users>(this.base_path + 'api/validasi-register-mobile', JSON.stringify(item), this.httpOptions);
+  }
+  ReloadCodeRegister(item): Observable<Users> {
+    return this.http
+        .post<Users>(this.base_path + 'api/reload-code-register', JSON.stringify(item), this.httpOptions);
+  }
+
   CreateDataMediaSosial(item): Observable<Users> {
     return this.http
         .post<Users>(this.base_path + 'api/create-media-sosial', JSON.stringify(item), this.httpOptions);

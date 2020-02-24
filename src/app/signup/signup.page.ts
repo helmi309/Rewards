@@ -112,7 +112,8 @@ export class SignupPage implements OnInit {
     toast.present();
     if (this.cek === true) {
       const modal = await this.modalController.create({
-        component: Verivikasi
+        component: Verivikasi,
+        componentProps: { datacenter: this.data }
       });
       return await modal.present();
     }

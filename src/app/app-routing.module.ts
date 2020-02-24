@@ -18,7 +18,6 @@ const routes: Routes = [
   { path: 'forms-filters', canActivate: [AuthGuardFalse] , loadChildren: () => import('./forms/filters/forms-filters.module').then(m => m.FormsFiltersPageModule) },
   { path: 'page-not-found', canActivate: [AuthGuardFalse] , loadChildren: () => import('./page-not-found/page-not-found.module').then(m => m.PageNotFoundModule) },
   { path: 'showcase', canActivate: [AuthGuardFalse] , loadChildren: () => import('./showcase/showcase.module').then(m => m.ShowcasePageModule) },
-  { path: 'firebase', canActivate: [AuthGuardFalse] , loadChildren: () => import('./firebase/firebase-integration.module').then(m => m.FirebaseIntegrationModule) },
   { path: 'maps', canActivate: [AuthGuardFalse] ,   loadChildren: () => import('./maps/maps.module').then(m => m.MapsPageModule) },
   { path: 'video-playlist', canActivate: [AuthGuardFalse] , loadChildren: () => import('./video-playlist/video-playlist.module').then(m => m.VideoPlaylistPageModule) },
   { path: '**', redirectTo: 'page-not-found' }

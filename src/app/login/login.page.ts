@@ -83,6 +83,8 @@ export class LoginPage implements OnInit {
                     role: res.result.users.level,
                     image: res.result.users.user_by,
                     isCode: res.result.users.is_aktif,
+                    password: '',
+                    code: '',
                 };
                 this.UsersDatas.insert(this.UserField);
                 this.router.navigated = false;
@@ -129,6 +131,8 @@ export class LoginPage implements OnInit {
                             role: '2',
                             image: profile['picture_large']['data']['url'],
                             isCode: '1',
+                            password: '',
+                            code: '',
                         };
                         this.Createdatausers();
                     });
@@ -162,7 +166,6 @@ export class LoginPage implements OnInit {
                 role: res.message[0].role,
                 isCode: res.message[0].isCode,
             };
-            console.log(this.global.datausers2);
         }
     }
     async CreateSqlite(res2) {
@@ -174,7 +177,9 @@ export class LoginPage implements OnInit {
             role: res2['result'].users.level,
             image: res2['result'].users.user_by,
             isCode: res2['result'].users.is_aktif,
-        }
+            password: '',
+            code: '',
+        };
         await this.UsersDatas.insert(this.UserField);
         await this.LoginCek.load().then(
             res => this.CekDataSession2(res),
@@ -206,6 +211,8 @@ export class LoginPage implements OnInit {
             role: '3',
             image: profile['imageUrl'],
             isCode: '1',
+            password: '',
+            code: '',
         };
         this.Createdatausers();
     }
